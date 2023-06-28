@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.radius.model.FacilityOption
 
 class OptionAdapter(
     private val options: List<FacilityOption>,

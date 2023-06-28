@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.radius.model.Facility
+import com.example.radius.model.FacilityOption
 
 class FacilityAdapter(private val facilities: List<Facility>) :
     RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>() {
