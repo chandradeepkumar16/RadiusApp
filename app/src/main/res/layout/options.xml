@@ -1,11 +1,30 @@
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="10dp"
-    android:id="@+id/facilityOptions"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:text="options here"
-    android:layout_marginStart="20dp"
-    android:textSize="16sp"
-     />
+    android:layout_margin="5dp"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/optionIconImageView"-->
+<!--        android:layout_width="24dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:padding="5dp"-->
+<!--        android:src="@drawable/ic_android" />-->
+
+    <RadioButton
+        android:id="@+id/optionBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        />
+
+    <TextView
+        android:id="@+id/optionNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Option 1"
+        android:textSize="14dp"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+
+</LinearLayout>

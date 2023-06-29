@@ -1,0 +1,59 @@
+package com.example.radius.adapter.option
+
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.radius.R
+import com.example.radius.model.Option
+
+class FacilityOptionAdapter(val options: List<Option>) :
+    RecyclerView.Adapter<FacilityOptionAdapter.FacilityOptionViewHolder>() {
+
+    val listofOptionsSelected = ArrayList<String>()
+    var selectedOption: Option? = null
+
+    inner class FacilityOptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val optionNameTextView: TextView = itemView.findViewById(R.id.optionNameTextView)
+        val optionRadioBTN :RadioButton = itemView.findViewById(R.id.optionBtn)
+
+        fun bind(option: Option) {
+            optionNameTextView.text = option.name
+
+//            optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
+//                if (isChecked) {
+//                    Log.d("opt", "${option.name}")
+//                    listofOptionsSelected.add(option.name)
+//
+//                }
+//            }
+
+            optionRadioBTN.isChecked = option == selectedOption
+
+            optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedOption = option
+                }
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacilityOptionViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.options, parent, false)
+        return FacilityOptionViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: FacilityOptionViewHolder, position: Int) {
+        val optionName = options[position]
+        holder.bind(optionName)
+    }
+
+    override fun getItemCount(): Int {
+        return options.size
+    }
+}
