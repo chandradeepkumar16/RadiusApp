@@ -1,19 +1,20 @@
 package com.example.radius
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radius.adapter.FacilityAdapter
+import com.example.radius.adapter.OptionAdapter
 import com.example.radius.databinding.ActivityMainBinding
+import com.example.radius.model.FacilityModel
 import com.example.radius.services.ApiInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 //    var facilities = List<Facility>()
 
   val list = ArrayList<String>()
+    val optionslist = ArrayList<String>()
     lateinit var binding: ActivityMainBinding
 
 
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-// Make the API call to fetch the FacilityModel data
 
 
 
@@ -55,14 +56,28 @@ class MainActivity : AppCompatActivity() {
                     val facilityModel = response.body()
                     facilityModel?.let {
                         for (facility in facilityModel.facilities) {
-                            val facilityName = facility.name
-                            list.add(facilityName)
+                            Log.d("check", "${facility.name}")
+                            list.add(facility.name)
+                            for(options in facility.options){
+                                optionslist.add(options.name)
+                                Log.d("check", "${options.name}")
+                            }
                         }
+
+//                        for ( facility in facilityModel.facilities){
+//                            for(options in facility.options){
+//                                for(opt in options.name){
+//                                    optionslist.add(options.name)
+//                                }
+//                            }
+//                        }
                     }
 
                     Toast.makeText(this@MainActivity, "${list.size}",Toast.LENGTH_LONG).show()
                     val adapter = FacilityAdapter(list)
+
                     binding.RecyclerView.adapter=adapter
+
                 } else {
                     println("API call failed: ${response.code()}")
                 }

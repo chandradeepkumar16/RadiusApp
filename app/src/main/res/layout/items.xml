@@ -1,9 +1,39 @@
-
-
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/facilityNameTextView"
-    android:layout_width="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:text="hehe"
-    android:textSize="16sp" />
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Facility Name"
+        android:textColor="#F13737"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginTop="10dp"
+        android:id="@+id/facilityNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="hehe"
+        android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/optionsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/facilityNameTextView"
+        tools:listitem="@layout/options"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

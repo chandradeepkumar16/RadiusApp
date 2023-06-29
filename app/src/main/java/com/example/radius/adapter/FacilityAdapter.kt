@@ -10,7 +10,7 @@ import com.example.radius.R
 class FacilityAdapter(private val facilityNames: List<String>) : RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacilityViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.facilitynames, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.items, parent, false)
         return FacilityViewHolder(itemView)
     }
 

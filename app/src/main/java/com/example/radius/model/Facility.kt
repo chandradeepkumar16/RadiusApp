@@ -1,4 +1,4 @@
-package com.example.radius
+package com.example.radius.model
 
 data class Facility(
     val facility_id: String,

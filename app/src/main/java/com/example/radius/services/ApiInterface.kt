@@ -1,8 +1,6 @@
 package com.example.radius.services
 
-import com.example.radius.Facility
-import com.example.radius.FacilityModel
-import retrofit2.Response
+import com.example.radius.model.FacilityModel
 import retrofit2.http.GET
 
 interface ApiInterface {
