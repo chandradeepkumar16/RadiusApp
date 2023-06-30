@@ -14,6 +14,11 @@ import com.example.radius.model.Option
 class FacilityAdapter(private val facilities: List<Facility>) :
     RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>() {
 
+//    private val selectedOptions = mutableMapOf<String, Option>()
+    private val selectedOptions = mutableMapOf<String, String>()
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacilityViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.facility_item_layout, parent, false)
@@ -39,8 +44,27 @@ class FacilityAdapter(private val facilities: List<Facility>) :
 
             facilityNameTextView.text = facility.name
             facilityOptionsRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
-            facilityOptionsRecyclerView.adapter = FacilityOptionAdapter(facility.options)
+
+            val optionAdapter = FacilityOptionAdapter(facility.options)
+
+            optionAdapter.setOnOptionClickListener { option ->
+                selectedOptions[facility.facility_id] = option.name
+            }
+            facilityOptionsRecyclerView.adapter = optionAdapter
+
+//            selectedOptions[facility.facility_id]?.let { selectedOption ->
+//                optionAdapter.setSelectedOption(facility.options.indexOf(selectedOption))
+//            }
+
+            selectedOptions[facility.facility_id]?.let { selectedOptionName ->
+                val selectedOptionIndex = facility.options.indexOfFirst { it.name == selectedOptionName }
+                optionAdapter.setSelectedOption(selectedOptionIndex)
+            }
 
         }
+    }
+
+    fun getSelectedOptions(): List<String> {
+        return selectedOptions.values.toList()
     }
 }

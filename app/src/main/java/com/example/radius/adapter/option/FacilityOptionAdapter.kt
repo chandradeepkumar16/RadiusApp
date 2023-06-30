@@ -13,47 +13,31 @@ import com.example.radius.model.Option
 class FacilityOptionAdapter(var options: List<Option>) :
     RecyclerView.Adapter<FacilityOptionAdapter.FacilityOptionViewHolder>() {
 
-
     private var selectedOptionPosition = -1
     val selectedOptions= ArrayList<String>()
-
+    private var onOptionClickListener: ((Option) -> Unit)? = null
 
     inner class FacilityOptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val optionNameTextView: TextView = itemView.findViewById(R.id.optionNameTextView)
         val optionRadioBTN :RadioButton = itemView.findViewById(R.id.optionBtn)
 
-        init {
-            optionRadioBTN.setOnClickListener {
-
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    setSelectedOption(position)
-                    Log.d("check", "${optionNameTextView.text}")
-
-                }
-            }
-
-
-            optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    selectedOptions.add(optionNameTextView.text.toString())
-                    Log.d("check", "${selectedOptions.size}")
-
-                } else {
-                    selectedOptions.remove(optionNameTextView.text.toString())
-                }
-            }
-
-
-        }
-
-
 
         fun bind(option: Option) {
 
             optionNameTextView.text = option.name
             optionRadioBTN.isChecked = adapterPosition == selectedOptionPosition
+            itemView.setOnClickListener {
+                setSelectedOption(adapterPosition)
+                onOptionClickListener?.invoke(option)
+            }
+
+            optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    setSelectedOption(adapterPosition)
+                    onOptionClickListener?.invoke(option)
+                }
+            }
 
         }
     }
@@ -73,24 +57,16 @@ class FacilityOptionAdapter(var options: List<Option>) :
         return options.size
     }
 
+    fun setOnOptionClickListener(listener: (Option) -> Unit) {
+        onOptionClickListener = listener
+    }
+
+
     fun setSelectedOption(position: Int) {
         if (selectedOptionPosition != position) {
             selectedOptionPosition = position
             notifyDataSetChanged()
         }
-    }
-
-    fun getSelectedOption(): Option? {
-        if (selectedOptionPosition != -1) {
-            return options[selectedOptionPosition]
-        }
-        return null
-    }
-
-
-    fun getSeletedArray(): List<String> {
-        return selectedOptions
-        notifyDataSetChanged()
     }
 
 

@@ -2,7 +2,6 @@ package com.example.radius
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radius.adapter.facility.FacilityAdapter
@@ -29,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
 
 //    lateinit var binding: FacilityItemLayoutBinding
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,8 +63,6 @@ class MainActivity : AppCompatActivity() {
                             facilityOptionAdapter = FacilityOptionAdapter(it.facilities.first().options)
                             binding.recyclerView.adapter = facilityAdapter
 
-
-
                         }
                     }
                 } else {
@@ -79,10 +77,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.submitBtn.setOnClickListener {
 
-//            Log.d("check","${facilityOptionAdapter?.getSelectedOption()}")
-//            Log.d("check","${facilityOptionAdapter?.getSeletedArray()}")
 
-            val selectedOptions = facilityOptionAdapter?.getSeletedArray()
+            val selectedOptions = facilityAdapter.getSelectedOptions()
             Log.d("check", "$selectedOptions")
 
         }
