@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radius.adapter.facility.FacilityAdapter
+import com.example.radius.adapter.option.FacilityOptionAdapter
 import com.example.radius.databinding.ActivityMainBinding
 import com.example.radius.model.FacilityModel
 import com.example.radius.services.ApiInterface
@@ -20,10 +21,12 @@ class MainActivity : AppCompatActivity() {
 //    val exclusions = List<List<Exclusion>>()
 //    var facilities = List<Facility>()
 
-  val list = ArrayList<String>()
+    val list = ArrayList<String>()
     val optionslist = ArrayList<String>()
     lateinit var binding: ActivityMainBinding
     private lateinit var facilityAdapter: FacilityAdapter
+     var facilityOptionAdapter: FacilityOptionAdapter ?=null
+
 
 //    lateinit var binding: FacilityItemLayoutBinding
 
@@ -54,8 +57,13 @@ class MainActivity : AppCompatActivity() {
                     facilityModel?.let {
                         for (facility in facilityModel.facilities) {
 
-                            val facilityAdapter = FacilityAdapter(it.facilities)
+                            facilityAdapter = FacilityAdapter(it.facilities)
                             binding.recyclerView.adapter = facilityAdapter
+
+                            facilityOptionAdapter = FacilityOptionAdapter(it.facilities.first().options)
+                            binding.recyclerView.adapter = facilityAdapter
+
+
 
                         }
                     }
@@ -70,7 +78,13 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.submitBtn.setOnClickListener {
-            Log.d("so","${facilityAdapter.getSelectedOptions()}")
+
+//            Log.d("check","${facilityOptionAdapter?.getSelectedOption()}")
+//            Log.d("check","${facilityOptionAdapter?.getSeletedArray()}")
+
+            val selectedOptions = facilityOptionAdapter?.getSeletedArray()
+            Log.d("check", "$selectedOptions")
+
         }
 
 

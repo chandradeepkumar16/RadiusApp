@@ -10,35 +10,51 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.radius.R
 import com.example.radius.model.Option
 
-class FacilityOptionAdapter(val options: List<Option>) :
+class FacilityOptionAdapter(var options: List<Option>) :
     RecyclerView.Adapter<FacilityOptionAdapter.FacilityOptionViewHolder>() {
 
-    val listofOptionsSelected = ArrayList<String>()
-    var selectedOption: Option? = null
+
+    private var selectedOptionPosition = -1
+    val selectedOptions= ArrayList<String>()
+
 
     inner class FacilityOptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val optionNameTextView: TextView = itemView.findViewById(R.id.optionNameTextView)
         val optionRadioBTN :RadioButton = itemView.findViewById(R.id.optionBtn)
 
-        fun bind(option: Option) {
-            optionNameTextView.text = option.name
+        init {
+            optionRadioBTN.setOnClickListener {
 
-//            optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
-//                if (isChecked) {
-//                    Log.d("opt", "${option.name}")
-//                    listofOptionsSelected.add(option.name)
-//
-//                }
-//            }
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    setSelectedOption(position)
+                    Log.d("check", "${optionNameTextView.text}")
 
-            optionRadioBTN.isChecked = option == selectedOption
+                }
+            }
+
 
             optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    selectedOption = option
+                    selectedOptions.add(optionNameTextView.text.toString())
+                    Log.d("check", "${selectedOptions.size}")
+
+                } else {
+                    selectedOptions.remove(optionNameTextView.text.toString())
                 }
             }
+
+
+        }
+
+
+
+        fun bind(option: Option) {
+
+            optionNameTextView.text = option.name
+            optionRadioBTN.isChecked = adapterPosition == selectedOptionPosition
+
         }
     }
 
@@ -56,4 +72,27 @@ class FacilityOptionAdapter(val options: List<Option>) :
     override fun getItemCount(): Int {
         return options.size
     }
+
+    fun setSelectedOption(position: Int) {
+        if (selectedOptionPosition != position) {
+            selectedOptionPosition = position
+            notifyDataSetChanged()
+        }
+    }
+
+    fun getSelectedOption(): Option? {
+        if (selectedOptionPosition != -1) {
+            return options[selectedOptionPosition]
+        }
+        return null
+    }
+
+
+    fun getSeletedArray(): List<String> {
+        return selectedOptions
+        notifyDataSetChanged()
+    }
+
+
+
 }
