@@ -1,5 +1,6 @@
 package com.example.radius.adapter.facility
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,4 +68,6 @@ class FacilityAdapter(private val facilities: List<Facility>) :
     fun getSelectedOptions(): List<String> {
         return selectedOptions.values.toList()
     }
+
 }
+

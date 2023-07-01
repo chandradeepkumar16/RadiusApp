@@ -1,7 +1,9 @@
 package com.example.radius
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radius.adapter.facility.FacilityAdapter
@@ -9,6 +11,11 @@ import com.example.radius.adapter.option.FacilityOptionAdapter
 import com.example.radius.databinding.ActivityMainBinding
 import com.example.radius.model.FacilityModel
 import com.example.radius.services.ApiInterface
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,24 +34,29 @@ class MainActivity : AppCompatActivity() {
      var facilityOptionAdapter: FacilityOptionAdapter ?=null
 
 
+    val database = FirebaseDatabase.getInstance()
+    val reference = FirebaseDatabase.getInstance().getReference("users")
+
 //    lateinit var binding: FacilityItemLayoutBinding
 
 
+    override fun onBackPressed() {
+        startActivity(Intent(this , MainActivity::class.java))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-//        binding = FacilityItemLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        recyclerView = findViewById(R.id.recyclerView)
+        FirebaseApp.initializeApp(this)
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
 
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://my-json-server.typicode.com/iranjith4/ad-assignment/")
-            // .baseUrl("http://192.168.137.1:3001/v1/") //home
             .build()
             .create(ApiInterface::class.java)
 
@@ -81,7 +93,21 @@ class MainActivity : AppCompatActivity() {
             val selectedOptions = facilityAdapter.getSelectedOptions()
             Log.d("check", "$selectedOptions")
 
+            val reference = database.getReference("users")
+            val newUserReference = reference.push()
+            newUserReference.setValue(selectedOptions)
+
+//            facilityAdapter?.clearOptions()
+            startActivity(Intent(this , MainActivity::class.java))
+
         }
+
+
+        binding.previousDataBtn.setOnClickListener {
+            startActivity(Intent(this,PreviousSubmittedDataActivtiy::class.java))
+        }
+
+
 
 
 

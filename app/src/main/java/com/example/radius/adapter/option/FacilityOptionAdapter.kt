@@ -69,6 +69,12 @@ class FacilityOptionAdapter(var options: List<Option>) :
         }
     }
 
+    fun clearSelectedOptions() {
+        selectedOptionPosition = -1
+        selectedOptions.clear()
+        notifyDataSetChanged()
+    }
+
 
 
 }
