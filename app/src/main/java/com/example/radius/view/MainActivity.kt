@@ -1,9 +1,8 @@
-package com.example.radius
+package com.example.radius.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radius.adapter.facility.FacilityAdapter
@@ -12,10 +11,7 @@ import com.example.radius.databinding.ActivityMainBinding
 import com.example.radius.model.FacilityModel
 import com.example.radius.services.ApiInterface
 import com.google.firebase.FirebaseApp
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.previousDataBtn.setOnClickListener {
-            startActivity(Intent(this,PreviousSubmittedDataActivtiy::class.java))
+            startActivity(Intent(this, PreviousSubmittedDataActivtiy::class.java))
         }
 
 

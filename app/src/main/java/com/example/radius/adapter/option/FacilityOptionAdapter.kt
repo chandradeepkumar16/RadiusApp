@@ -27,10 +27,7 @@ class FacilityOptionAdapter(var options: List<Option>) :
 
             optionNameTextView.text = option.name
             optionRadioBTN.isChecked = adapterPosition == selectedOptionPosition
-            itemView.setOnClickListener {
-                setSelectedOption(adapterPosition)
-                onOptionClickListener?.invoke(option)
-            }
+
 
             optionRadioBTN.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -38,7 +35,6 @@ class FacilityOptionAdapter(var options: List<Option>) :
                     onOptionClickListener?.invoke(option)
                 }
             }
-
         }
     }
 
@@ -67,12 +63,6 @@ class FacilityOptionAdapter(var options: List<Option>) :
             selectedOptionPosition = position
             notifyDataSetChanged()
         }
-    }
-
-    fun clearSelectedOptions() {
-        selectedOptionPosition = -1
-        selectedOptions.clear()
-        notifyDataSetChanged()
     }
 
 

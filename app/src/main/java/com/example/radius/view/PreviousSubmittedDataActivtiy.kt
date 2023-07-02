@@ -1,11 +1,9 @@
-package com.example.radius
+package com.example.radius.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.radius.adapter.previousData.PreviousDataSelectedAdapter
-import com.example.radius.databinding.ActivityMainBinding
 import com.example.radius.databinding.ActivityPreviousSubmittedDataActivtiyBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

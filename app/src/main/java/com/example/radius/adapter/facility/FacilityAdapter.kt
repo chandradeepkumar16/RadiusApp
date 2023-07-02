@@ -47,21 +47,10 @@ class FacilityAdapter(private val facilities: List<Facility>) :
             facilityOptionsRecyclerView.layoutManager = LinearLayoutManager(itemView.context)
 
             val optionAdapter = FacilityOptionAdapter(facility.options)
-
             optionAdapter.setOnOptionClickListener { option ->
                 selectedOptions[facility.facility_id] = option.name
             }
             facilityOptionsRecyclerView.adapter = optionAdapter
-
-//            selectedOptions[facility.facility_id]?.let { selectedOption ->
-//                optionAdapter.setSelectedOption(facility.options.indexOf(selectedOption))
-//            }
-
-            selectedOptions[facility.facility_id]?.let { selectedOptionName ->
-                val selectedOptionIndex = facility.options.indexOfFirst { it.name == selectedOptionName }
-                optionAdapter.setSelectedOption(selectedOptionIndex)
-            }
-
         }
     }
 
